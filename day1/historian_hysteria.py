@@ -1,7 +1,9 @@
 import re
 
 def get_input():
-    with open('./day1/input.txt', 'r') as input:
+    target = './day1/input.txt'
+    # target = './day1/test.txt'
+    with open(target, 'r') as input:
         lines = [line.rstrip('\n') for line in input.readlines()]
     return lines
 
@@ -28,7 +30,22 @@ def part1():
     return sum(distances)
 
 def part2():
-    pass
+    lines = get_input()
+    dict = {}
+    column1 = []
+    column2 = []
+    for line in lines:
+        numbers = get_numbers(line)
+        column1.append(int(numbers[0]))
+        column2.append(int(numbers[1]))
+
+    for val in column1:
+        if(val in dict.keys()):
+            dict[val] = dict[val] + (val * column2.count(val))
+        else:
+            dict[val] = val * column2.count(val)
+
+    return sum(dict.values())
 
 def main():
     print(part1())
